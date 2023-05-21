@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -20,6 +22,19 @@ class _DetailScreenState extends State<DetailScreen> {
     // print(widget.pokemonDetail);
   }
 
+  Future addtoFav() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    var user = auth.currentUser;
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection("user");
+    return collection.doc(user!.email).collection("items").doc().set({
+      "num": widget.pokemonDetail['num'],
+      "name": widget.pokemonDetail['name'],
+      "image": widget.pokemonDetail['img'],
+      "color": widget.color.toString()
+    }).then((value) => print("add to fav"));
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -37,11 +52,25 @@ class _DetailScreenState extends State<DetailScreen> {
                 icon: const Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
-                  size: 20,
+                  size: 30,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
+          ),
+          Positioned(
+            top: 20,
+            right: 15,
+            child: CircleAvatar(
+              backgroundColor: Colors.redAccent,
+              child: IconButton(
+                  icon: const Icon(
+                    Icons.favorite_outline,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  onPressed: () => addtoFav()),
+            ),
           ),
           Positioned(
               top: 70,

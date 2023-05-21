@@ -87,7 +87,7 @@ class _AuthFormState extends State<AuthForm> {
             .signInWithEmailAndPassword(email: mail, password: pass);
         errorMessage = ' ';
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen()));
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       } on FirebaseAuthException catch (e) {
         errorMessage = e.message.toString();
       }

@@ -7,10 +7,12 @@ import 'package:firebase_core/firebase_core.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Pokemon());
+  runApp(const Pokemon());
 }
 
 class Pokemon extends StatelessWidget {
+  const Pokemon({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

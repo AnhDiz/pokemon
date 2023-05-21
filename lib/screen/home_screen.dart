@@ -5,9 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokedex2/screen/auth_screen.dart';
+import 'package:pokedex2/screen/fav_screem.dart';
 import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -57,11 +60,37 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    late FirebaseAuth user = FirebaseAuth.instance;
 
     return Scaffold(
+        endDrawer: Drawer(
+            child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+                accountName: Text(user.currentUser!.uid),
+                accountEmail: Text(user.currentUser!.email.toString())),
+            ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text('Favorites'),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => Favorite()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Logout'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const AuthScreen()));
+              },
+            ),
+          ],
+        )),
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.redAccent,
             centerTitle: false,
             title: const Padding(
               padding: EdgeInsets.only(left: 10),
@@ -84,17 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 200,
               fit: BoxFit.fitWidth,
             ),
-          ),
-          Positioned(
-            top: 40,
-            left: 30,
-            child: ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => AuthScreen()));
-                },
-                child: null),
           ),
           Positioned(
             top: 150,
@@ -245,8 +263,6 @@ class _HomeScreenState extends State<HomeScreen> {
         pokedex = data['pokemon'];
 
         setState(() {});
-
-        // print(pokedex);
       }
     }).catchError((e) {});
   }
