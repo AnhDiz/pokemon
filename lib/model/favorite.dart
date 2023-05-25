@@ -1,6 +1,13 @@
-class Favorites {
-  int? id;
-  String? name, image, num;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  Favorites({this.id, this.image, this.name, this.num});
+class Favorites {
+  String? id;
+  String name, image, num, color;
+
+  Favorites(
+      {this.id,
+      required this.image,
+      required this.name,
+      required this.num,
+      required this.color});
 }

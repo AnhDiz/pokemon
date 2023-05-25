@@ -31,7 +31,7 @@ class _DetailScreenState extends State<DetailScreen> {
       "num": widget.pokemonDetail['num'],
       "name": widget.pokemonDetail['name'],
       "image": widget.pokemonDetail['img'],
-      "color": widget.color.toString()
+      "type": widget.pokemonDetail['type'][0]
     }).then((value) => print("add to fav"));
   }
 
@@ -62,11 +62,11 @@ class _DetailScreenState extends State<DetailScreen> {
             top: 20,
             right: 15,
             child: CircleAvatar(
-              backgroundColor: Colors.redAccent,
+              backgroundColor: Colors.white,
               child: IconButton(
                   icon: const Icon(
                     Icons.favorite_outline,
-                    color: Colors.white,
+                    color: Colors.red,
                     size: 20,
                   ),
                   onPressed: () => addtoFav()),
