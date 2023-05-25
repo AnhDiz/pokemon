@@ -42,7 +42,6 @@ class Favorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
-    ;
     var user = auth.currentUser;
     final Stream<QuerySnapshot> users = FirebaseFirestore.instance
         .collection('user')
