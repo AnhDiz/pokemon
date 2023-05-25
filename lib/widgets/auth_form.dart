@@ -25,56 +25,76 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        margin: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
+    return Column(
+      children: [
+        const SizedBox(
+          height: 50,
+        ),
+        Center(
           child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  TextFormField(
-                    controller: emailCT,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Email address',
-                    ),
+            padding: const EdgeInsets.all(20),
+            child: Image.asset('images/logo.png'),
+          ),
+        ),
+        Center(
+          child: Card(
+            margin: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Form(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextFormField(
+                        controller: emailCT,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.email),
+                            labelText: 'Email address',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0))),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        controller: passwordCT,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.password),
+                            labelText: 'Password',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0))),
+                        obscureText: true,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Center(
+                        child: Text(errorMessage),
+                      ),
+                      ElevatedButton(
+                        onPressed: signIn,
+                        child: Text(_islogin ? 'Login' : 'Register'),
+                      ),
+                      TextButton(
+                        child: const Text('Create new account'),
+                        onPressed: () {
+                          setState(() {
+                            _islogin = !_islogin;
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                  TextFormField(
-                    controller: passwordCT,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                    ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Center(
-                    child: Text(errorMessage),
-                  ),
-                  ElevatedButton(
-                    onPressed: signIn,
-                    child: Text(_islogin ? 'Login' : 'Register'),
-                  ),
-                  TextButton(
-                    child: const Text('Create new account'),
-                    onPressed: () {
-                      setState(() {
-                        _islogin = !_islogin;
-                      });
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 

@@ -11,9 +11,16 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: const AuthForm(),
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.redAccent, Color.fromARGB(183, 255, 255, 255)])),
+      child: const Scaffold(
+        backgroundColor: Colors.transparent,
+        body: AuthForm(),
+      ),
     );
   }
 }
