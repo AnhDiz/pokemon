@@ -16,7 +16,10 @@ class _AuthScreenState extends State<AuthScreen> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.redAccent, Color.fromARGB(183, 255, 255, 255)])),
+              colors: [
+            Colors.greenAccent,
+            Color.fromARGB(183, 255, 255, 255)
+          ])),
       child: const Scaffold(
         backgroundColor: Colors.transparent,
         body: AuthForm(),
